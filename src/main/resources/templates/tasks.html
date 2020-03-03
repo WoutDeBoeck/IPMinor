@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Tasks</title>
+</head>
+    <body>
+        <header>
+            <h2>Tasks</h2>
+            <nav>
+                <ul>
+                    <li><a href="/">Index</a></li>
+                    <li><a href="/tasks">Task Overview</a></li>
+                    <li><a href="/tasks/new">New Task</a></li>
+                </ul>
+            </nav>
+        </header>
+        <article>
+            <section>
+                <div>
+                    <table>
+                        <tr>
+                            <th>Task Title</th>
+                            <th>Due Date</th>
+                        </tr>
+                        <tr th:if="${!tasks.isEmpty()}" th:each="task : ${tasks}">
+                            <td th:text="*{task.title}"></td>
+                            <td th:text="*{#temporals.format(task.getDueDateTime(), 'dd/MMM/yyyy HH:mm')}"></td>
+                            <td><a th:href="*{'/tasks/' + task.id}" >Details</a></td>
+                            <td><a th:href="*{'/tasks/' + task.id + '/sub/create'}" >Add subtask</a></td>
+                        </tr>
+                    </table>
+                    <p th:if="${tasks.isEmpty()}">There are currently no tasks available.</p>
+                </div>
+            </section>
+            <section>
+                <!-- TODO: Find way to get PathVariable working with form-->
+                <!--
+                <h2>Search for task</h2>
+                <form action="/tasks/">
+                    <label for="taskId">Task Id:</label>
+                    <input type="number" id="taskId">
+
+                    <input type="submit" value="Submit" />
+                </form>
+                -->
+            </section>
+        </article>
+    </body>
+</html>
