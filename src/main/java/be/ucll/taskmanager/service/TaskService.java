@@ -2,7 +2,9 @@ package be.ucll.taskmanager.service;
 
 import be.ucll.taskmanager.domain.Subtask;
 import be.ucll.taskmanager.domain.Task;
+import be.ucll.taskmanager.dto.SubtaskDTO;
 import be.ucll.taskmanager.dto.TaskDTO;
+import be.ucll.taskmanager.repository.SubtaskRepository;
 import be.ucll.taskmanager.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,28 +17,25 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class TaskService implements ITaskService
 {
     private final TaskRepository repository;
+    private final SubtaskRepository subtaskRepository;
+
     private AtomicInteger ids;
 
 
     @Autowired
-    public TaskService(TaskRepository repository)
+    public TaskService(TaskRepository repository, SubtaskRepository subtaskRepository)
     {
         this.repository = repository;
-        this.ids = new AtomicInteger();
+        this.subtaskRepository = subtaskRepository;
 
-        //TODO: Delete dummy data creation
-        TaskDTO ipMinor = new TaskDTO();
-        ipMinor.setDueDateTime(LocalDateTime.of(2020, 7, 1, 0, 0));
-        ipMinor.setTitle("Pass for IP Minor");
-        ipMinor.setDetails("Create a project that nets me a decent score");
-        addTask(ipMinor);
+        this.ids = new AtomicInteger();
     }
 
 
     @Override
     public List<Task> getAllTasks()
     {
-        return repository.getTasks();
+        return repository.findAll();
     }
 
     @Override
@@ -44,13 +43,13 @@ public class TaskService implements ITaskService
     {
         Task task = new Task(ids.getAndIncrement(), taskdto.getTitle(), taskdto.getDetails(), taskdto.getDueDateTime());
 
-        repository.addTask(task);
+        repository.save(task);
     }
 
     @Override
     public Task getTaskById(int id)
     {
-        List<Task> tasks = repository.getTasks();
+        List<Task> tasks = getAllTasks();
         Task output = null;
 
         for (Task task : tasks)
@@ -75,16 +74,27 @@ public class TaskService implements ITaskService
             task.setDetails(updatedTask.getDetails());
             task.setDueDateTime(updatedTask.getDueDateTime());
         }
+
+        repository.save(task);
     }
 
     @Override
-    public void addSubtaskToTaskWithId(int id, Subtask subtask)
+    public void addSubtaskToTaskWithId(int id, SubtaskDTO subtaskDTO)
     {
         Task task = getTaskById(id);
 
         if(task != null)
         {
+            Subtask subtask = new Subtask();
+
+            subtask.setTitle(subtaskDTO.getTitle());
+            subtask.setDetails(subtaskDTO.getDetails());
+
+            subtaskRepository.save(subtask);
+
             task.addSubtask(subtask);
         }
+
+        repository.save(task);
     }
 }
