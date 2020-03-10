@@ -19,16 +19,12 @@ public class TaskService implements ITaskService
     private final TaskRepository repository;
     private final SubtaskRepository subtaskRepository;
 
-    private AtomicInteger ids;
-
 
     @Autowired
     public TaskService(TaskRepository repository, SubtaskRepository subtaskRepository)
     {
         this.repository = repository;
         this.subtaskRepository = subtaskRepository;
-
-        this.ids = new AtomicInteger();
     }
 
 
@@ -41,7 +37,11 @@ public class TaskService implements ITaskService
     @Override
     public void addTask(TaskDTO taskdto)
     {
-        Task task = new Task(ids.getAndIncrement(), taskdto.getTitle(), taskdto.getDetails(), taskdto.getDueDateTime());
+        Task task = new Task();
+
+        task.setTitle(taskdto.getTitle());
+        task.setDetails(taskdto.getDetails());
+        task.setDueDateTime(taskdto.getDueDateTime());
 
         repository.save(task);
     }
