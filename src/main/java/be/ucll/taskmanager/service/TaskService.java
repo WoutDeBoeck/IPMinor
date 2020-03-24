@@ -4,24 +4,22 @@ import be.ucll.taskmanager.domain.Subtask;
 import be.ucll.taskmanager.domain.Task;
 import be.ucll.taskmanager.dto.SubtaskDTO;
 import be.ucll.taskmanager.dto.TaskDTO;
-import be.ucll.taskmanager.repository.SubtaskRepository;
-import be.ucll.taskmanager.repository.TaskRepository;
+import be.ucll.taskmanager.repository.ISubtaskRepository;
+import be.ucll.taskmanager.repository.ITaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class TaskService implements ITaskService
 {
-    private final TaskRepository repository;
-    private final SubtaskRepository subtaskRepository;
+    private final ITaskRepository repository;
+    private final ISubtaskRepository subtaskRepository;
 
 
     @Autowired
-    public TaskService(TaskRepository repository, SubtaskRepository subtaskRepository)
+    public TaskService(ITaskRepository repository, ISubtaskRepository subtaskRepository)
     {
         this.repository = repository;
         this.subtaskRepository = subtaskRepository;
