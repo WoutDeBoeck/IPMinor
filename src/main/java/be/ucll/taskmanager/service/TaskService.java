@@ -2,55 +2,52 @@ package be.ucll.taskmanager.service;
 
 import be.ucll.taskmanager.domain.Subtask;
 import be.ucll.taskmanager.domain.Task;
+import be.ucll.taskmanager.dto.SubtaskDTO;
 import be.ucll.taskmanager.dto.TaskDTO;
-import be.ucll.taskmanager.repository.TaskRepository;
+import be.ucll.taskmanager.repository.ISubtaskRepository;
+import be.ucll.taskmanager.repository.ITaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class TaskService implements ITaskService
 {
-    private final TaskRepository repository;
-    private AtomicInteger ids;
+    private final ITaskRepository repository;
+    private final ISubtaskRepository subtaskRepository;
 
 
     @Autowired
-    public TaskService(TaskRepository repository)
+    public TaskService(ITaskRepository repository, ISubtaskRepository subtaskRepository)
     {
         this.repository = repository;
-        this.ids = new AtomicInteger();
-
-        //TODO: Delete dummy data creation
-        TaskDTO ipMinor = new TaskDTO();
-        ipMinor.setDueDateTime(LocalDateTime.of(2020, 7, 1, 0, 0));
-        ipMinor.setTitle("Pass for IP Minor");
-        ipMinor.setDetails("Create a project that nets me a decent score");
-        addTask(ipMinor);
+        this.subtaskRepository = subtaskRepository;
     }
 
 
     @Override
     public List<Task> getAllTasks()
     {
-        return repository.getTasks();
+        return repository.findAll();
     }
 
     @Override
     public void addTask(TaskDTO taskdto)
     {
-        Task task = new Task(ids.getAndIncrement(), taskdto.getTitle(), taskdto.getDetails(), taskdto.getDueDateTime());
+        Task task = new Task();
 
-        repository.addTask(task);
+        task.setTitle(taskdto.getTitle());
+        task.setDetails(taskdto.getDetails());
+        task.setDueDateTime(taskdto.getDueDateTime());
+
+        repository.save(task);
     }
 
     @Override
     public Task getTaskById(int id)
     {
-        List<Task> tasks = repository.getTasks();
+        List<Task> tasks = getAllTasks();
         Task output = null;
 
         for (Task task : tasks)
@@ -75,16 +72,27 @@ public class TaskService implements ITaskService
             task.setDetails(updatedTask.getDetails());
             task.setDueDateTime(updatedTask.getDueDateTime());
         }
+
+        repository.save(task);
     }
 
     @Override
-    public void addSubtaskToTaskWithId(int id, Subtask subtask)
+    public void addSubtaskToTaskWithId(int id, SubtaskDTO subtaskDTO)
     {
         Task task = getTaskById(id);
 
         if(task != null)
         {
+            Subtask subtask = new Subtask();
+
+            subtask.setTitle(subtaskDTO.getTitle());
+            subtask.setDetails(subtaskDTO.getDetails());
+
+            subtaskRepository.save(subtask);
+
             task.addSubtask(subtask);
         }
+
+        repository.save(task);
     }
 }

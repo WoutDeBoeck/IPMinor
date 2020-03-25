@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>Details</title>
     </head>
     <body>
@@ -25,8 +26,9 @@
                 <li><p th:text="*{'Due Date: ' + task.dueDateTime}"></p></li>
             </ul>
 
+            <h3 th:text="Subtasks"></h3>
+
             <div th:if="${task.hasSubtasks()}">
-                <h3 th:text="Subtasks"></h3>
                 <ul th:each="subtask : ${task.getSubtasks()}">
                     <li>
                         <ul>
@@ -36,6 +38,8 @@
                     </li>
                 </ul>
             </div>
+
+            <p><a th:href="*{'/tasks/' + task.id + '/sub/create'}">Add Subtask</a></p>
         </article>
     </body>
 </html>
