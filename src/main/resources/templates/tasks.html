@@ -3,16 +3,18 @@
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>Tasks</title>
+        <title th:text="#{tasksTitle}"></title>
     </head>
     <body>
         <header>
-            <h2>Tasks</h2>
+            <h2 th:text="#{tasksTitle}"></h2>
             <nav>
                 <ul>
-                    <li><a href="/">Index</a></li>
-                    <li><a href="/tasks">Task Overview</a></li>
-                    <li><a href="/tasks/new">New Task</a></li>
+                    <li><a href="/" th:text="#{index}"></a></li>
+                    <li><a href="/tasks" th:text="#{overview}"></a></li>
+                    <li><a href="/tasks/new" th:text="#{newTask}"></a></li>
+                    <li><a href="?lang=en" th:text="#{lang.en}"></a></li>
+                    <li><a href="?lang=nl" th:text="#{lang.nl}"></a></li>
                 </ul>
             </nav>
         </header>
@@ -21,21 +23,19 @@
                 <div>
                     <table>
                         <tr>
-                            <th>Task Title</th>
-                            <th>Due Date</th>
+                            <th th:text="#{title}"></th>
+                            <th th:text="#{dueDate}"></th>
                         </tr>
                         <tr th:if="${!tasks.isEmpty()}" th:each="task : ${tasks}">
                             <td th:text="*{task.title}"></td>
                             <td th:text="*{#temporals.format(task.getDueDateTime(), 'dd/MMM/yyyy HH:mm')}"></td>
-                            <td><a th:href="*{'/tasks/' + task.id}" >Details</a></td>
-                            <td><a th:href="*{'/tasks/' + task.id + '/sub/create'}" >Add subtask</a></td>
+                            <td><a th:href="*{'/tasks/' + task.id}" th:text="#{details}"></a></td>
+                            <td><a th:href="*{'/tasks/' + task.id + '/sub/create'}" th:text="#{addSubtask}"></a></td>
+                            <td><a th:href="*{'/tasks/edit/' + task.id}" th:text="#{editTask}"></a></td>
                         </tr>
                     </table>
-                    <p th:if="${tasks.isEmpty()}">There are currently no tasks available.</p>
+                    <p th:if="${tasks.isEmpty()}" th:text="#{noTaskMessage}"></p>
                 </div>
-            </section>
-            <section>
-
             </section>
         </article>
     </body>
