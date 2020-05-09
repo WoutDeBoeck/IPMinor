@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class TaskRepository
+public class InMemoryTaskRepository
 {
     private List<Task> tasks;
 
 
-    public TaskRepository()
+    public InMemoryTaskRepository()
     {
         tasks = new ArrayList<>();
     }

@@ -1,7 +1,7 @@
 package be.ucll.taskmanager.controller;
 
-import be.ucll.taskmanager.domain.Subtask;
 import be.ucll.taskmanager.domain.Task;
+import be.ucll.taskmanager.dto.SubtaskDTO;
 import be.ucll.taskmanager.dto.TaskDTO;
 import be.ucll.taskmanager.service.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,9 +91,9 @@ public class TaskController
     }
 
     @PostMapping("/tasks/{id}/sub/add")
-    public String addSubtaskToTaskWithId(@PathVariable int id, @ModelAttribute Subtask subtask)
+    public String addSubtaskToTaskWithId(@PathVariable int id, @ModelAttribute SubtaskDTO subtaskDTO)
     {
-        service.addSubtaskToTaskWithId(id, subtask);
+        service.addSubtaskToTaskWithId(id, subtaskDTO);
 
         return "redirect:/tasks/" + id;
     }

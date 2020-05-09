@@ -1,20 +1,32 @@
 package be.ucll.taskmanager.domain;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Task
 {
+    @Id
+    @GeneratedValue
     private int id;
+
     private String title;
     private String details;
     private LocalDateTime dueDateTime;
 
+    @OneToMany
+    @JoinColumn
     private List<Subtask> subtasks;
 
+
+    public Task()
+    {
+        subtasks = new ArrayList<>();
+    }
 
     public Task(int id, String title, String details, LocalDateTime dueDateTime)
     {
