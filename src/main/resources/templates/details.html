@@ -34,8 +34,8 @@
                 <ul th:each="subtask : ${task.getSubtasks()}">
                     <li>
                         <ul>
-                            <li><p th:text="*{'Title: ' + subtask.title}"></p></li>
-                            <li><p th:text="*{'Details: ' + subtask.details}"></p></li>
+                            <li><p th:text="#{title} + *{': ' + subtask.title}"></p></li>
+                            <li><p th:text="#{details} + *{': ' + subtask.details}"></p></li>
                         </ul>
                     </li>
                 </ul>

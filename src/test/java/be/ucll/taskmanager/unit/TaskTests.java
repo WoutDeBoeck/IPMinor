@@ -1,7 +1,7 @@
 package be.ucll.taskmanager.unit;
 
-import be.ucll.taskmanager.domain.Subtask;
-import be.ucll.taskmanager.domain.Task;
+import be.ucll.taskmanager.model.domain.Subtask;
+import be.ucll.taskmanager.model.domain.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

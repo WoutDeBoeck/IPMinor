@@ -1,4 +1,4 @@
-package be.ucll.taskmanager.dto;
+package be.ucll.taskmanager.model.dto;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

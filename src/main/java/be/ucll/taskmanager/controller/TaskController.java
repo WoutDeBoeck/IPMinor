@@ -1,9 +1,9 @@
 package be.ucll.taskmanager.controller;
 
-import be.ucll.taskmanager.domain.Task;
-import be.ucll.taskmanager.dto.SubtaskDTO;
-import be.ucll.taskmanager.dto.TaskDTO;
-import be.ucll.taskmanager.service.ITaskService;
+import be.ucll.taskmanager.model.domain.Task;
+import be.ucll.taskmanager.model.dto.SubtaskDTO;
+import be.ucll.taskmanager.model.dto.TaskDTO;
+import be.ucll.taskmanager.model.service.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
