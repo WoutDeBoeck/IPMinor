@@ -1,11 +1,11 @@
-package be.ucll.taskmanager.service;
+package be.ucll.taskmanager.model.service;
 
-import be.ucll.taskmanager.domain.Subtask;
-import be.ucll.taskmanager.domain.Task;
-import be.ucll.taskmanager.dto.SubtaskDTO;
-import be.ucll.taskmanager.dto.TaskDTO;
-import be.ucll.taskmanager.repository.ISubtaskRepository;
-import be.ucll.taskmanager.repository.ITaskRepository;
+import be.ucll.taskmanager.model.domain.Subtask;
+import be.ucll.taskmanager.model.domain.Task;
+import be.ucll.taskmanager.model.dto.SubtaskDTO;
+import be.ucll.taskmanager.model.dto.TaskDTO;
+import be.ucll.taskmanager.model.repository.ISubtaskRepository;
+import be.ucll.taskmanager.model.repository.ITaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,10 +1,9 @@
 package be.ucll.taskmanager.integration;
 
-import be.ucll.taskmanager.domain.Task;
-import be.ucll.taskmanager.dto.SubtaskDTO;
-import be.ucll.taskmanager.dto.TaskDTO;
-import be.ucll.taskmanager.service.TaskService;
-import org.hibernate.Hibernate;
+import be.ucll.taskmanager.model.domain.Task;
+import be.ucll.taskmanager.model.dto.SubtaskDTO;
+import be.ucll.taskmanager.model.dto.TaskDTO;
+import be.ucll.taskmanager.model.service.TaskService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
