@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>Taskmanager</title>
+        <title th:text="#{indexTitle}"></title>
     </head>
     <body>
         <header>
-            <h2>Taskmanager</h2>
+            <h2 th:text="#{indexTitle}"></h2>
             <nav>
                 <ul>
-                    <li><a href="/">Index</a></li>
-                    <li><a href="/tasks">Task Overview</a></li>
-                    <li><a href="/tasks/new">New Task</a></li>
+                    <li><a href="/" th:text="#{index}"></a></li>
+                    <li><a href="/tasks" th:text="#{overview}"></a></li>
+                    <li><a href="/tasks/new" th:text="#{newTask}"></a></li>
+                    <li><a href="?lang=en" th:text="#{lang.en}"></a></li>
+                    <li><a href="?lang=nl" th:text="#{lang.nl}"></a></li>
                 </ul>
             </nav>
         </header>

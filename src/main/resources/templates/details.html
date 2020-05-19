@@ -3,30 +3,32 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>Details</title>
+        <title th:text="#{detailsTitle}"></title>
     </head>
     <body>
         <header>
-            <h2>
-                Task Details
-            </h2>
+            <h2 th:text="#{detailsTitle}"></h2>
             <nav>
                 <ul>
-                    <li><a href="/">Index</a></li>
-                    <li><a href="/tasks">Task Overview</a></li>
-                    <li><a href="/tasks/new">New Task</a></li>
+                    <li><a href="/" th:text="#{index}"></a></li>
+                    <li><a href="/tasks" th:text="#{overview}"></a></li>
+                    <li><a href="/tasks/new" th:text="#{newTask}"></a></li>
+                    <li><a href="?lang=en" th:text="#{lang.en}"></a></li>
+                    <li><a href="?lang=nl" th:text="#{lang.nl}"></a></li>
                 </ul>
             </nav>
         </header>
         <article>
-            <p th:if="${task == null}">Task not found</p>
+            <p th:if="${task == null}" th:text="#{taskNotFound}"></p>
             <ul th:if="${task != null}">
-                <li><p th:text="*{'Title: ' + task.title}"></p></li>
-                <li><p th:text="*{'Details: ' + task.details}"></p></li>
-                <li><p th:text="*{'Due Date: ' + task.dueDateTime}"></p></li>
+                <li><p th:text="#{title} + *{': ' + task.title}"></p></li>
+                <li><p th:text="#{details} + *{': ' + task.details}"></p></li>
+                <li><p th:text="#{dueDate} + *{': ' + task.dueDateTime}"></p></li>
             </ul>
 
-            <h3 th:text="Subtasks"></h3>
+            <p><a th:href="*{'/tasks/edit/' + task.id}" th:text="#{editTask}"></a></p>
+
+            <h3 th:text="#{subtask}"></h3>
 
             <div th:if="${task.hasSubtasks()}">
                 <ul th:each="subtask : ${task.getSubtasks()}">
@@ -39,7 +41,7 @@
                 </ul>
             </div>
 
-            <p><a th:href="*{'/tasks/' + task.id + '/sub/create'}">Add Subtask</a></p>
+            <p><a th:href="*{'/tasks/' + task.id + '/sub/create'}" th:text="#{addSubtask}"></a></p>
         </article>
     </body>
 </html>

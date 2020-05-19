@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>Create new task</title>
+        <title th:text="#{createTitle}"></title>
     </head>
     <body>
         <header>
-            <h2>New Task</h2>
+            <h2 th:text="#{createTitle}"></h2>
             <nav>
                 <ul>
-                    <li><a href="/">Index</a></li>
-                    <li><a href="/tasks">Task Overview</a></li>
-                    <li><a href="/tasks/new">New Task</a></li>
+                    <li><a href="/" th:text="#{index}"></a></li>
+                    <li><a href="/tasks" th:text="#{overview}"></a></li>
+                    <li><a href="/tasks/new" th:text="#{newTask}"></a></li>
+                    <li><a href="?lang=en" th:text="#{lang.en}"></a></li>
+                    <li><a href="?lang=nl" th:text="#{lang.nl}"></a></li>
                 </ul>
             </nav>
         </header>
@@ -20,19 +22,19 @@
             <form method="POST" action="/tasks/create" >
                 <ul>
                     <li>
-                        <label for="title">Title:</label>
+                        <label for="title" th:text="#{title} + ':'"></label>
                         <input type="text" required name="title" id="title">
                     </li>
                     <li>
-                        <label for="details">Description:</label>
+                        <label for="details" th:text="#{details} + ':'"></label>
                         <input type="text" required name="details" id="details">
                     </li>
                     <li>
-                        <label for="dueDateTime">Due date:</label>
+                        <label for="dueDateTime" th:text="#{dueDate} + ':'"></label>
                         <input type="datetime-local" required name="dueDateTime" id="dueDateTime">
                     </li>
                     <li>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" th:value="#{submit}"/>
                     </li>
                 </ul>
             </form>

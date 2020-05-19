@@ -3,33 +3,35 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>Add Subtask</title>
+        <title th:text="#{addSubtask}"></title>
     </head>
     <body>
         <header>
-            <h2>Add subtask</h2>
+            <h2 th:text="#{addSubtask}"></h2>
             <nav>
                 <ul>
-                    <li><a href="/">Index</a></li>
-                    <li><a href="/tasks">Task Overview</a></li>
-                    <li><a href="/tasks/new">New Task</a></li>
+                    <li><a href="/" th:text="#{index}"></a></li>
+                    <li><a href="/tasks" th:text="#{overview}"></a></li>
+                    <li><a href="/tasks/new" th:text="#{newTask}"></a></li>
+                    <li><a href="?lang=en" th:text="#{lang.en}"></a></li>
+                    <li><a href="?lang=nl" th:text="#{lang.nl}"></a></li>
                 </ul>
             </nav>
         </header>
         <article>
-            <p th:text="*{'Subtask will be added to task: &quot' + task.title + '&quot'}"></p>
+            <p th:text="#{subtaskInfo} + *{'&quot' + task.title + '&quot'}"></p>
             <form method="POST" th:action="*{'/tasks/' + task.id + '/sub/add'}">
                 <ul>
                     <li>
-                        <label for="title">Title:</label>
+                        <label for="title" th:text="#{title} + ':'"></label>
                         <input type="text" required name="title" id="title">
                     </li>
                     <li>
-                        <label for="details">Description:</label>
+                        <label for="details" th:text="#{details} + ':'"></label>
                         <input type="text" required name="details" id="details">
                     </li>
                     <li>
-                        <input type="submit" value="Submit" />
+                        <input type="submit" th:value="#{submit}" />
                     </li>
                 </ul>
             </form>
